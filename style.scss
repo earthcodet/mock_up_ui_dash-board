@@ -101,7 +101,7 @@ html, body{
     font-weight: bold;
     height: 0.9rem;
     margin-top: 0.9rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
 }
 .sb-body{
     cursor: pointer !important;
@@ -142,6 +142,12 @@ html, body{
     border-radius: 3px;
     background-color: #323a4a;
     color: white;
+}
+.sb-body.active{
+    border-radius: 3px;
+    background-color: #3d4f62;
+    color: white;
+    opacity: .7;
 }
 .navbar-right{
     align-items: center;
@@ -1151,9 +1157,10 @@ button.status.details{
 .color-font-status-2{
     color:#b63d59 !important;
 }
-.footer-style-link, .footer-style-link label{
+.footer-style-link, .footer-style-link label, .footer-style-link a, .footer-style-link a:active{
     color:#2f24d3;
     cursor: pointer;
+    text-decoration: none; 
 }
 .box-menu-profile{
     width: 200px;
