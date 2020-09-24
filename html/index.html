@@ -2,34 +2,45 @@
 <html>
   <head></head>
   <title>ArchitectUI</title>
+  <link rel="icon" href="../logo.png"/>
   <link rel="stylesheet" href="../style.css"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&amp;display=swap"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.8.0/echarts.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@300;700&amp;display=swap"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&amp;display=swap"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"/>
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <body>
     <div class="navbar ">
-      <div class="nav-logo-menu"> 
-        <div class="nav-logo-menu flex-2-box cols">
-          <div>
-            <Label class="font-logo size-logo">ArchitectUI</Label>
+      <div class="nav-logo-menu " id="boxLogoNavBar"> 
+        <div id="boxLogo1">
+          <div class="cols center flex-2-box  ">
+            <div>
+              <Label class="font-logo size-logo">ArchitectUI</Label>
+            </div>
+            <div>
+              <button class="icon-bar fa fa-lg fa-bars" id="openBoxLogo2"></button>
+            </div>
           </div>
-          <div>
-            <button class="icon-bar fa fa-lg fa-bars"></button>
-          </div>
+        </div>
+        <div id="boxLogo2">
+          <div><i class="las la-times font-30"></i></div>
         </div>
       </div>
       <div class="nav-box-menu flex-2-box">
-        <div class="cols">
-          <div>
-            <button class="bg-icon "><i class="las la-search icon-search-color"></i></button>
+        <div class="navbar-left">
+          <div class="box-search-icon position-box" id="boxSearch"><i class="las la-times font-20 styleX" id="btnSearch2"></i>
+            <input class="search" id="inputSearch" type="text"/>
+            <button class="bg-icon position-bg-icon" id="btnSearch"><i class="las la-search font-18 color-white"></i></button>
           </div>
         </div>
         <div class="navbar-right">
-          <div class="innerFlex">
+          <div class="inline-flex" id="openPopNav">
             <div class="bg-icon"><img class="image-profile" src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMfaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQ3MDQwMTFBRUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQ3MDQwMTE5RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSI0RjBENjMzNUYyM0RFMUYwNjM4MTY4RTUyODFERkI3QSIgc3RSZWY6ZG9jdW1lbnRJRD0iNEYwRDYzMzVGMjNERTFGMDYzODE2OEU1MjgxREZCN0EiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwM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" alt="" srcset=""/></div>
             <div>  
-              <button class="icon-dropdown"><i class="las la-angle-down icon-angle-down"></i></button>
+              <button class="icon-dropdown"><i class="las la-angle-down font-16 color-white"></i></button>
             </div>
           </div>
           <div class="space-box font-body"> 
@@ -43,18 +54,936 @@
           <div> 
             <button class="las la-calendar calendar-menu"></button>
           </div>
+          <div class="box-profile-popup profile-pop-nav-bar font-body" id="popupBoxNav">
+            <div class="cols new-box-pop header">
+              <div class="col ">
+                <label class="font-pop-up">ACTIVITY </label>
+              </div>
+            </div>
+            <div class="cols new-box-pop ">
+              <div class="col ">
+                <label class="font-pop-up">Chat </label>
+              </div>
+              <div class="popup-notification  color-menu3"> 
+                <label>8</label>
+              </div>
+            </div>
+            <div class="cols new-box-pop ">
+              <div class="col ">
+                <label class="font-pop-up">Recover Password </label>
+              </div>
+            </div>
+            <div class="cols new-box-pop header">
+              <div class="col ">
+                <label class="font-pop-up">MY ACCOUNT</label>
+              </div>
+            </div>
+            <div class="cols new-box-pop ">
+              <div class="col ">
+                <label class="font-pop-up">Setting </label>
+              </div>
+              <div class="popup-notification br color-menu4"> 
+                <label>8</label>
+              </div>
+            </div>
+            <div class="cols new-box-pop ">
+              <div class="col ">
+                <label class="font-pop-up">Messages </label>
+              </div>
+              <div class="popup-notification br color-menu5"> 
+                <label>8</label>
+              </div>
+            </div>
+            <div class="cols new-box-pop ">
+              <div class="col ">
+                <label class="font-pop-up">Logs </label>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="box-main ">
-      <div class="side-bar "> 
-        <Label>sidebar </Label>
+      <div class="side-bar font-side-bar sb-color-icon " id="boxSideBar"> 
+        <div class="side-bar-content " id="boxContentSideBar1">
+          <div class="sb-heading"> 
+            <label>PRO VERSION</label>
+          </div>
+          <div class="sb-body"><i class="las la-gem font-24"></i>
+            <label class="m-l-5 pointer">Upgrade to PRO</label>
+          </div>
+          <div class="sb-heading"> 
+            <label>menu</label>
+          </div>
+          <div class="sb-body"><i class="las la-rocket font-24"></i>
+            <label class="m-l-5 pointer">Dashboard Example</label>
+          </div>
+          <div class="sb-heading"> 
+            <label>ui components</label>
+          </div>
+          <div onClick="openDropDown(1)">
+            <div class="sb-body"><i class="las la-gem font-24"></i>
+              <div class="sb-box-content">
+                <label class="m-l-5 pointer">Elements</label>
+              </div><i class="text-right las la-angle-down sb-body-icon" id="angle_1"></i>
+            </div>
+          </div>
+          <div>
+            <div class="sb-dropdown" id="dd_1">
+              <div id="ef_1">
+                <div class="sb-dropdown-item"> 
+                  <label class="m-l-5 pointer">Standard Buttons</label>
+                </div>
+                <div class="sb-dropdown-item"> 
+                  <label class="m-l-5 pointer">Dropdowns</label>
+                </div>
+                <div class="sb-dropdown-item"> 
+                  <label class="m-l-5 pointer">Icons</label>
+                </div>
+                <div class="sb-dropdown-item"> 
+                  <label class="m-l-5 pointer">Badges</label>
+                </div>
+                <div class="sb-dropdown-item"> 
+                  <label class="m-l-5 pointer">Cards</label>
+                </div>
+                <div class="sb-dropdown-item"> 
+                  <label class="m-l-5 pointer">List Groups</label>
+                </div>
+                <div class="sb-dropdown-item"> 
+                  <label class="m-l-5 pointer">Navigation Menus</label>
+                </div>
+                <div class="sb-dropdown-item"> 
+                  <label class="m-l-5 pointer">tilities</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sb-body" onClick="openDropDown(2)"><i class="las la-car font-24"></i>
+            <div class="sb-box-content">
+              <label class="m-l-5 pointer">Components</label>
+            </div><i class="text-right las la-angle-down sb-body-icon" id="angle_2"></i>
+          </div>
+          <div class="sb-dropdown" id="dd_2">
+            <div class="sb-dropdown-item"> 
+              <label class="m-l-5 pointer">Tabs</label>
+            </div>
+            <div class="sb-dropdown-item"> 
+              <label class="m-l-5 pointer">Notifications</label>
+            </div>
+            <div class="sb-dropdown-item"> 
+              <label class="m-l-5 pointer">Modals</label>
+            </div>
+            <div class="sb-dropdown-item"> 
+              <label class="m-l-5 pointer">Progress Bar</label>
+            </div>
+            <div class="sb-dropdown-item"> 
+              <label class="m-l-5 pointer">Tooltips & Popovers</label>
+            </div>
+            <div class="sb-dropdown-item"> 
+              <label class="m-l-5 pointer">Carousel</label>
+            </div>
+            <div class="sb-dropdown-item"> 
+              <label class="m-l-5 pointer">Navigation Menus</label>
+            </div>
+            <div class="sb-dropdown-item"> 
+              <label class="m-l-5 pointer">Utilities</label>
+            </div>
+          </div>
+          <div class="sb-body"><i class="las la-chalkboard font-24"></i>
+            <label class="m-l-5 pointer">Regular Tables</label>
+          </div>
+          <div class="sb-heading"> 
+            <label>widgets</label>
+          </div>
+          <div class="sb-body"><i class="las la-chart-line font-24"></i>
+            <label class="m-l-5 pointer">Dashboard Boxes</label>
+          </div>
+          <div class="sb-heading"> 
+            <label>forms</label>
+          </div>
+          <div class="sb-body"><i class="las la-lightbulb font-24"></i>
+            <label class="m-l-5 pointer">Controls</label>
+          </div>
+          <div class="sb-body"><i class="las la-pen font-24"></i>
+            <label class="m-l-5 pointer">Layouts</label>
+          </div>
+          <div class="sb-body"><i class="las la-battery-empty font-24"></i>
+            <label class="m-l-5 pointer">Validation</label>
+          </div>
+          <div class="sb-heading"> 
+            <label>charts</label>
+          </div>
+          <div class="sb-body"><i class="las la-chart-line font-24"></i>
+            <label class="m-l-5 pointer">ChartUS</label>
+          </div>
+        </div>
+        <div class="side-bar-content " id="boxContentSideBar2">
+          <div class="sb-heading"> </div>
+          <div class="sb-body "><i class="las la-gem font-24"></i></div>
+          <div class="sb-heading"> </div>
+          <div class="sb-body "><i class="las la-rocket font-24"></i></div>
+          <div class="sb-heading "> </div>
+          <div class="sb-body"><i class="las la-gem font-24"></i></div>
+          <div class="sb-body"><i class="las la-car font-24"></i></div>
+          <div class="sb-body"><i class="las la-chalkboard font-24"></i></div>
+          <div class="sb-heading"> </div>
+          <div class="sb-body"><i class="las la-chart-line font-24"></i></div>
+          <div class="sb-heading"> </div>
+          <div class="sb-body"><i class="las la-lightbulb font-24"></i></div>
+          <div class="sb-body"><i class="las la-pen font-24"></i></div>
+          <div class="sb-body"><i class="las la-battery-empty font-24"></i></div>
+          <div class="sb-heading"> </div>
+          <div class="sb-body"><i class="las la-chart-line font-24"></i></div>
+        </div>
       </div>
-      <div class="box-content ">
-        <div class="box-model">
-          <Laber>box content</Laber>
+      <div class="box-content " id="boxContent">
+        <div class="box-model font-content">
+          <div class="cols box-title ">
+            <div class="cols flex-2-box position-box">
+              <div class="cols ">
+                <div class=" col-is-1 page-title-icon "><i class="las la-car font-32 icon-car-1"></i></div>
+                <div class=" col box-title-heading"> 
+                  <div class="box-title-heading">Basic Dashboard</div>
+                  <div class="box-title-detail">
+                    <label>This is an example dashboard created using build-in elements and components.</label>
+                  </div>
+                </div>
+              </div>
+              <div class="box-profile-popup" id="popupBox">
+                <div class="cols new-box-pop">
+                  <div class="col auto "><i class="las la-inbox font-18"></i></div>
+                  <div class="col ">
+                    <label class="font-pop-up">Inbox </label>
+                  </div>
+                  <div class="popup-notification color-menu1"> 
+                    <label>87</label>
+                  </div>
+                </div>
+                <div class="cols new-box-pop">
+                  <div class="col auto "><i class="las la-book font-18"></i></div>
+                  <div class="col ">
+                    <label class="font-pop-up">Book </label>
+                  </div>
+                  <div class="popup-notification color-menu2"> 
+                    <label>5</label>
+                  </div>
+                </div>
+                <div class="cols new-box-pop">
+                  <div class="col auto "><i class="las la-image font-18"></i></div>
+                  <div class="col ">
+                    <label class="font-pop-up">Picture </label>
+                  </div>
+                </div>
+                <div class="cols disable new-box-pop">
+                  <div class="col auto "><i class="las la-file font-18"></i></div>
+                  <div class="col ">
+                    <label class="font-pop-up">File Disabled </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col is-1  center-middle "> 
+                <div class="inline-flex position-box">
+                  <div class="tooltip">
+                    <button class="title star"><i class="fa fa-star"></i></button>
+                    <div class="tooltiptext">
+                      <label>Show a Toastify notification example!</label>
+                    </div>
+                  </div>
+                  <button class="title toolbox" id="openPopup"><i class="las la-toolbox "> </i>
+                    <label class="title-right-heading">Button</label><i class="fa fa-caret-down"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cols font-box newBox"> 
+            <div class="col is-4 ">
+              <div class="box-widget size-h-100 "> 
+                <div class="bg-color-white box-widget-card1 size-box-1 ">
+                  <div class="cols flex-2-box ">
+                    <div class="padding10x">
+                      <div class="cols center-left"> <i class="las la-rocket font-32"></i>
+                        <label class="heading-box-widget-banner">BANDWIDTH REPORTS</label>
+                      </div>
+                    </div>
+                    <div class="center-middle padding10x"> 
+                      <div class="cols bottom"> 
+                        <button class="tab tab-style" id="tab_1" onClick="openTab(1)"> 
+                          <label class="heading-box-widget">Tab1</label>
+                        </button>
+                        <button class="tab tab-style" id="tab_2" onClick="openTab(2)"> 
+                          <label class="heading-box-widget">Tab2</label>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="over-flow-hidden" id="box_tab_1">
+                    <div class="cols">
+                      <div class="col "> 
+                        <div class="box-padding">
+                          <div class="cols  center">
+                            <div class="col auto box-process-bar-sm">
+                              <label>63%</label>
+                            </div>
+                            <div class="col  bottomceneter box-text-muted text-left" style="vertical-align: middle;">
+                              <label>Generated Leads</label>
+                            </div>
+                          </div>
+                          <div class="cols">
+                            <div class="col">
+                              <div class="process-bar-max h-l">
+                                <div class="process-bar-power color-p-1 h-l" style="width:63%">
+                                  <div class="process-bar-power-hover "></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col "> 
+                        <div class="box-padding">
+                          <div class="cols  center">
+                            <div class="col auto box-process-bar-sm">
+                              <label>32%</label>
+                            </div>
+                            <div class="col  bottomceneter box-text-muted text-left" style="vertical-align: middle;">
+                              <label>Submitted Tickers</label>
+                            </div>
+                          </div>
+                          <div class="cols">
+                            <div class="col">
+                              <div class="process-bar-max h-l">
+                                <div class="process-bar-power color-p-2 h-l" style="width:32%">
+                                  <div class="process-bar-power-hover "></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cols">
+                      <div class="col "> 
+                        <div class="box-padding">
+                          <div class="cols  center">
+                            <div class="col auto box-process-bar-sm">
+                              <label>71%</label>
+                            </div>
+                            <div class="col  bottomceneter box-text-muted text-left" style="vertical-align: middle;">
+                              <label>Server Allocation</label>
+                            </div>
+                          </div>
+                          <div class="cols">
+                            <div class="col">
+                              <div class="process-bar-max h-l">
+                                <div class="process-bar-power color-p-3 h-l" style="width:71%">
+                                  <div class="process-bar-power-hover "></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col "> 
+                        <div class="box-padding">
+                          <div class="cols  center">
+                            <div class="col auto box-process-bar-sm">
+                              <label>41%</label>
+                            </div>
+                            <div class="col  bottomceneter box-text-muted text-left" style="vertical-align: middle;">
+                              <label>Generated Leads</label>
+                            </div>
+                          </div>
+                          <div class="cols">
+                            <div class="col">
+                              <div class="process-bar-max h-l">
+                                <div class="process-bar-power color-p-4 h-l" style="width:41%">
+                                  <div class="process-bar-power-hover "></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div></div>
+                    <div class="cols newBox">
+                      <div class="cols center bow-w-content"> 
+                        <div class="box-w-icon"> <i class="las la-arrow-left font-16"></i></div>
+                        <div class="box-w-heading">175.5%</div>
+                        <div class="box-w-subheading">increased server resources</div>
+                      </div>
+                    </div>
+                    <div id="chart_1"></div>
+                  </div>
+                  <div class="hide " id="box_tab_2">
+                    <div id="chart_2"></div>
+                    <div class="cols center bow-w-content"> 
+                      <div class="box-w-icon"> <i class="las la-arrow-up plot-up font-16"></i></div>
+                      <div class="box-w-heading plot-up-headding">175.5%</div>
+                      <div class="box-w-subheading">performance increase</div>
+                    </div>
+                    <div class="cols ">
+                      <div class="col "> 
+                        <div class="box-padding">
+                          <div class="cols  center">
+                            <div class="col auto box-process-bar-sm">
+                              <label>23%</label>
+                            </div>
+                            <div class="col  bottomceneter box-text-muted text-left" style="vertical-align: middle;">
+                              <label>Deploys</label>
+                            </div>
+                          </div>
+                          <div class="cols">
+                            <div class="col">
+                              <div class="process-bar-max h-l">
+                                <div class="process-bar-power color-p-3 h-l" style="width:23%"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col "> 
+                        <div class="box-padding">
+                          <div class="cols  center">
+                            <div class="col auto box-process-bar-sm">
+                              <label>76%</label>
+                            </div>
+                            <div class="col  bottomceneter box-text-muted text-left" style="vertical-align: middle;">
+                              <label>Traffic</label>
+                            </div>
+                          </div>
+                          <div class="cols">
+                            <div class="col">
+                              <div class="process-bar-max h-l">
+                                <div class="process-bar-power color-p-4 h-l" style="width:76%"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cols">
+                      <div class="col "> 
+                        <div class="box-padding">
+                          <div class="cols  center">
+                            <div class="col auto box-process-bar-sm">
+                              <label>83%</label>
+                            </div>
+                            <div class="col  bottomceneter box-text-muted text-left" style="vertical-align: middle;">
+                              <label>Servers Load</label>
+                            </div>
+                          </div>
+                          <div class="cols">
+                            <div class="col">
+                              <div class="process-bar-max h-l">
+                                <div class="process-bar-power color-p-1 h-l" style="width:83%"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col "> 
+                        <div class="box-padding">
+                          <div class="cols  center">
+                            <div class="col auto box-process-bar-sm">
+                              <label>41%</label>
+                            </div>
+                            <div class="col  bottomceneter box-text-muted text-left" style="vertical-align: middle;">
+                              <label>Generated Leads</label>
+                            </div>
+                          </div>
+                          <div class="cols">
+                            <div class="col">
+                              <div class="process-bar-max h-l">
+                                <div class="process-bar-power color-p-2 h-l" style="width:41%"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cols"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col is-4 ">
+              <div class="cols ">
+                <div class="col is-4 ">
+                  <div class="box-widget "> 
+                    <div class="box-widget-card color-blue ">
+                      <div class="box-widget-icon-top">
+                        <div class="box-widget-icon-cycle  "><i class="las la-cog box-widget-icon color-ic-1"></i></div>
+                      </div>
+                      <div class="box-widget-number">87,4</div>
+                      <div class="box-widget-subheaing">Reports Generated</div>
+                      <div class="box-widget-detail"> <i class="fa fa-angle-up icon-left"></i>
+                        <label>54.9%</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col is-4">
+                  <div class="box-widget "> 
+                    <div class="box-widget-card color-drak-blue ">
+                      <div class="box-widget-icon-top">
+                        <div class="box-widget-icon-box  "><i class="las la-desktop box-widget-icon color-ic-2"></i></div>
+                      </div>
+                      <div class="box-widget-number">17.2k</div>
+                      <div class="box-widget-subheaing">Profiles</div>
+                      <div class="box-widget-detail"> 
+                        <label>62.7%</label><i class="las la-arrow-left icon-right"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cols">
+                <div class="col is-4">
+                  <div class="box-widget "> 
+                    <div class="box-widget-card color-green ">
+                      <div class="box-widget-icon-top">
+                        <div class="box-widget-icon-box  bg-ic-1"><i class="las la-school box-widget-icon color-ic-3"></i></div>
+                      </div>
+                      <div class="box-widget-number">63.2k</div>
+                      <div class="box-widget-subheaing">Bugs Fixed</div>
+                      <div class="box-widget-detail"> <i class="las la-arrow-right icon-left"></i>
+                        <label>72.1%</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col is-4 ">
+                  <div class="box-widget "> 
+                    <div class="box-widget-card color-red ">
+                      <div class="box-widget-icon-top">
+                        <div class="box-widget-icon-cycle  bg-ic-1"><i class="las la-cog box-widget-icon color-ic-3"></i></div>
+                      </div>
+                      <div class="position-box ">
+                        <div id="chart_3"></div>
+                        <div class="position-box-center ">
+                          <div class="box-widget-number">45.8k</div>
+                          <div class="box-widget-subheaing">Total Views</div>
+                          <div class="box-widget-detail"> <i class="las la-angle-up icon-left"></i>
+                            <label>175.5%</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cols newBox ">
+            <div class="col "> 
+              <div class="cols" style="height:100%">
+                <div class="col ">
+                  <div class="box-widget"> 
+                    <div class="box-widget-card1">
+                      <div class="box-widget-icon-top">
+                        <div class="box-widget-icon-cycle  color-gray-d2"><i class="las la-cog box-widget-icon color-ic-4"></i></div>
+                      </div>
+                      <div class="box-widget-number color-text">45.8k</div>
+                      <div class="box-widget-subheaing color-text-sub">Total Views</div>
+                      <div class="box-widget-detail color-box1"> <i class="fa fa-angle-up"></i>
+                        <label>175.5%</label>
+                      </div>
+                      <div class="box_gp " id="chart_4"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col "> 
+                  <div class="box-widget"> 
+                    <div class="box-widget-card1  ">
+                      <div class="box-widget-icon-top">
+                        <div class="box-widget-icon-cycle  color-green-d2"><i class="las la-desktop box-widget-icon color-ic-5"></i></div>
+                      </div>
+                      <div class="box-widget-number color-text">87,4</div>
+                      <div class="box-widget-subheaing color-text-sub">Reports Generated</div>
+                      <div class="box-widget-detail color-box2"> <i class="fa fa-angle-down color-box2"></i>
+                        <label>54.9%</label>
+                      </div>
+                      <div class="box_gp" id="chart_5"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col "> 
+              <div class="box-widget "> 
+                <div class="box-widget-card1  ">
+                  <div class="box-widget-icon-top">
+                    <div class="box-widget-icon-cycle  color-red-d2"><i class="fa font-27 fa-heart-o box-widget-icon fa-icon color-ic-6"></i></div>
+                  </div>
+                  <div class="box-widget-number color-text">87,4</div>
+                  <div class="box-widget-subheaing color-text-sub">Reports Generated</div>
+                  <div class="box-widget-detail text-style-widget color-box4"> 
+                    <label>Down by</label><i class="fa fa-angle-down icon-left icon-right color-box3"></i>
+                    <label class="color-box3">54.1% </label>
+                    <label>from 30 days ago</label>
+                  </div>
+                  <div class="box_gp" id="chart_6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cols newBox">
+            <div class="col is-4 newBox">
+              <div class="cols " style="height:100%">
+                <div class="col ">
+                  <div class="box-widget"> 
+                    <div class="box-widget-card1 padding-size2x text-left"> 
+                      <div class="cols bottom">
+                        <div class="col auto box-process-bar color-bpb-1">
+                          <label>71%</label>
+                        </div>
+                        <div class="col process-bar-max">
+                          <div class="process-bar-power color-p-1" style="width:71%;"> </div>
+                        </div>
+                      </div>
+                      <div class="color-p-5 box-process-subheading">
+                        <label>Income Target</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col "> 
+                  <div class="box-widget"> 
+                    <div class="box-widget-card1 padding-size2x text-left"> 
+                      <div class="cols bottom">
+                        <div class="col auto box-process-bar color-bpb-2">
+                          <label>54%</label>
+                        </div>
+                        <div class="col process-bar-max">
+                          <div class="process-bar-power color-p-2" style="width:54%;"> </div>
+                        </div>
+                      </div>
+                      <div class="color-p-5 box-process-subheading">
+                        <label>Expenses Target</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col newBox">
+              <div class="cols " style="height:100%">
+                <div class="col"> 
+                  <div class="box-widget"> 
+                    <div class="box-widget-card1 padding-size2x text-left"> 
+                      <div class="cols bottom">
+                        <div class="col auto box-process-bar color-bpb-3">
+                          <label>32%</label>
+                        </div>
+                        <div class="col process-bar-max">
+                          <div class="process-bar-power color-p-3" style="width:32%;"> </div>
+                        </div>
+                      </div>
+                      <div class="color-p-5 box-process-subheading">
+                        <label>Spendings Target</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col"> 
+                  <div class="box-widget"> 
+                    <div class="box-widget-card1 padding-size2x text-left"> 
+                      <div class="cols bottom">
+                        <div class="col auto box-process-bar color-bpb-4">
+                          <label>89%</label>
+                        </div>
+                        <div class="col process-bar-max">
+                          <div class="process-bar-power color-p-4" style="width:89%;"> </div>
+                        </div>
+                      </div>
+                      <div class="color-p-5 box-process-subheading">
+                        <label>Totals Target</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cols"> 
+            <div class="box-widget newBox col">
+              <div class="box-widget-card1 padding-size2x text-left newBox "> 
+                <div class=" "> 
+                  <div class="cols flex-2-box">
+                    <div>
+                      <div class="cols center">
+                        <label>ACTIVE USERS</label>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="tab">
+                        <button class="active radius-left"> 
+                          <label class="box-tab ">Last Week</label>
+                        </button>
+                        <button class="radius-right"> 
+                          <label class="box-tab">All Month</label>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="newBox "> 
+                  <div class="table-class">
+                    <table id="tableTest">
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr>
+                        <td> 
+                          <div class="table-style">#345</div>
+                        </td>
+                        <td> 
+                          <div class="text-left">
+                            <div class="cols"> 
+                              <div class="col auto">
+                                <div class="bg-icon"><img class="image-profile" src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMfaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkJFMEYwODFCRUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkJFMEYwODFBRUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSIxQUMwRDYxNUU3RTUxRTAwNThENTY1NENGQTYxNTZCQyIgc3RSZWY6ZG9jdW1lbnRJRD0iMUFDMEQ2MTVFN0U1MUUwMDU4RDU2NTRDRkE2MTU2QkMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwM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" alt="" srcset=""/></div>
+                              </div>
+                              <div class="col space-box">
+                                <div class="table-name-headding">
+                                  <label>John Doo</label>
+                                </div>
+                                <div class="table-name-subheadding">
+                                  <label>Web Developer</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td> 
+                          <div class="table-style">Madrid</div>
+                        </td>
+                        <td> 
+                          <div> 
+                            <button class="status pending"> 
+                              <label>PENDING</label>
+                            </button>
+                          </div>
+                        </td>
+                        <td> 
+                          <div> 
+                            <button class="status details"> 
+                              <label>Details </label>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td> 
+                          <div class="table-style">#347</div>
+                        </td>
+                        <td> 
+                          <div class="text-left">
+                            <div class="cols"> 
+                              <div class="col auto">
+                                <div class="bg-icon"><img class="image-profile" src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMxaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQ3MDQwMTEyRUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQ3MDQwMTExRUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RDgzQTU0RjlFQTY4MTFFODhGMzQ4NDBBMjJGNzJDODgiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RDgzQTU0RkFFQTY4MTFFODhGMzQ4NDBBMjJGNzJDODgiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYF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" alt="" srcset=""/></div>
+                              </div>
+                              <div class="col space-box">
+                                <div class="table-name-headding">
+                                  <label>Ruben Tillman</label>
+                                </div>
+                                <div class="table-name-subheadding">
+                                  <label>Etiam sit amet orci eget</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td> 
+                          <div class="table-style">Madrid</div>
+                        </td>
+                        <td> 
+                          <div> 
+                            <button class="status completed"> 
+                              <label>COMPLETED</label>
+                            </button>
+                          </div>
+                        </td>
+                        <td> 
+                          <div> 
+                            <button class="status details"> 
+                              <label>Details</label>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td> 
+                          <div class="table-style">#321</div>
+                        </td>
+                        <td> 
+                          <div class="text-left">
+                            <div class="cols"> 
+                              <div class="col auto">
+                                <div class="bg-icon"><img class="image-profile" src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMfaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQ3MDQwMTE2RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQ3MDQwMTE1RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJENDFFMzk5RUI1NDJFOUFCNzIzNzUzMDQ3QkJEMkQ3OSIgc3RSZWY6ZG9jdW1lbnRJRD0iRDQxRTM5OUVCNTQyRTlBQjcyMzc1MzA0N0JCRDJENzkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCABAAEADAREAAhEBAxEB/8QAhgAAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQABAAIDAQAAAAAAAAAAAAAAAAIDAQQFABAAAgEDAwMCBAQHAQAAAAAAAQIDEQQFACESMRMGQSJRYSMHMkJSFHGBkaFyMxbBEQACAgICAQQBBQEAAAAAAAABAgARIQMxEgRBUSITFGFxkTIFI//aAAwDAQACEQMRAD8Aw3/j7yr0VPYQCK/HUDyFhnQ4nbeE5FUZ+0pUELWo6nUfkp7yfxdk+fxMWtnNe5FTFbxe1O20YZ3BFQok2agO9N9NTYGFiL2a2Q0eZzY43xwXERu42e3n2jUyGI77V5AMCV+H8ttFYgUYx2f288dyqMMZcyQzL7S1x/pRyKokpIWReVPxCo/jqbEijAF94Pl8fcft72waCYjlGpZWV19HRlJV1PoQdLbco5jF07GFiQL4veNxAth7gSCSOg0P5CQh4+w+k8Xxm9K1FsCvqeQ135Ke84+Lsh61a8JIe/iZyVLVWm+qOB6TQ6En+wlsy5JWnFzfwwWS0lknZCeIHwHr8tcqA1ids2MpIsRQ8ly4zeQ5RrI0UICQwdwgrxFCwVfpc26njq/YAqUKLEsfWTYuBLZhC80d7jrs0nsJaoxJ/NE35JV69RXQFoQWGhn8rg4O3EFurZVBt7gioliB98cq9Uk6H/IVHXS+9xn11LsXlVnLOMfb3JGHyambGib6gsb0jkU/UI5GqpHp10HXsKMZ26mxJkiuhZWzPeQLPKDyjYUpXqK6rE5ODLaoaBsSaS1uYrXti6iDyD2sR7dcKOaMFgRixBN+9y8v13iio4JYJTTEFcXB3NdWRB2fy8q4m+tP3EUyukaqUX3AFhy07WuQaMrbcYBBjF9msX45kElF/bRy3aEFeQ6L/wC6lzD0rNyw3j+CCUbG25pszdtWqD09NKBlhll658F8PuouMmKhpvQBeO51xUcyQx4iR5F9mfD5LG7mt0e24kOQjcehqQpPQ6jWcztqjrVRG8pSCIi0keIIApglcUcxlfaWPxOi6gOSOJXZ2KdTVwLcWWNmEFtFeUkCcmdgSnXpqftPNQB4oOO0gzN75BkII0bHlIahz7dzT46Zr1KpsGL2b3cURBOVxbHCX17cQvFdRmP6QQheHIAtt01Pf5BRxJGr4ljgxi+26W+Cw6eR3MEtzPcSOkFvGQoKIacjyooFep0naReZa0D42Jo2L+91lHdLHJjgLSoElxDOkwi+UgAH9tCzFRdQ0IY1cdM79x8dhre3nubaWVbuPuwRwryZ09WFaD19Tpf35qo76cXcXPL/ADK0zfieQgwwntMt2f3MNpcxNG0sURDShDurEJU7HUMQcQTxM2zFteZaa1nhljji7aBUkUEjjXc6ar0OJXZbPIEGZTLXNteR2cdxbKAm7lBSo12tLF0Ye3YVNWsvXORkoskk5UnbiR66M6RVASuvlsCCSIU8Vk/6CzyVtft3HjUSRRR+0sqVHE/qqSNjtpLaevFy7p8nvd1Gb7cWWNucacDkIUdLQCF4+q7bkivzP9dSW7NmQE6rj0jNl/CsTj8e/EyTpIw7cT8CC/RTQLuQuwOnVQ94tcn0H7QrdeLWeXxOOsbyNFKWvC3lkRZFjZajiVPUFTQ6CqIjDkH2lC08GxHi2OnuGdG+k6rDEWFupZChZY3LcWYGjH10t/7dmna1+PRRQmX+XY/GeP3Fqt85gu54D9OOQupjB4rJQj2lq9Btttp2l2riVvK8fWCD2yREKUYc3jqspeBVBSRhUk/PVgOa4lJtQugYTaC1vp+E11JEUb3rT8Wg+wjgQ01K3JqX7P8Af+PZOO/wweWTiwYsOS8WFGR19QdHfZc4gD/m/wAcwh475DfR5OTISMqvcS1vABQIxNKgfp1n71o4mx4+zstn1j15DkcllUuMMUurN24Nb5C3WRiYyOqMgPUGhpolNiGFzjE68anufHpIp8xmZ760gia2gj+oiqtQVkdZVBaRTtWug4NxrKetQn5J5XZw3cLXzMcVEq3F7IoJPZJ91FG5Jr00pWLPUg0iFuJkX3Hztjns/Nk7WVksW7cVhDKlHMEK8VLD0LbmmtJFIxMfbtDm7gSxvYGuwsjpFEVrz7daEeh20JTEkbcy1LcZJI6Xtn9TkDzWm9Dto11qODEvtc8iW7LMuxljlWWNTQsQDTfQ7FHpHeO5zcrQXIxdzJkY2NzYSEpeIVqVr0YD5dDpOzNCqljSetkGxc1LxDyzA5axjguZAUt/p20ivQqg6VPXQhR6xq7L4jccjhMfYtK129yqgse7J3Fp0/NtTfQvUaGJmOeb+TTTQ8baRUiuS00bsP8AciNxog/QCKV/pqfE1W3b2iPO3fDqPWJl5LJciOd7lA609tNgdaAv2mZ1XBBzI5chkYLmOKJoyrj8QT1+e2h6AwztZeJ7cZq+uGVkd1kG1CuwGpXWo4gPscmzD9nbeQW2Plushc21tEqB1iuZVSYg9Kx78dt/dTTj/nMy9qxK6/6wRugNn9rhnxfEfucQn7kdtbz68QA37b7KW/zG9PhrO8gDtQmx4gPQk+sCXPgU9tlXSGWS0iYgLNExWgY9SBpTbSBGfQCYy4L7byveJHeXV3ewV5FZ5D2/48Qd/wCeqrbnbGBLK+Oq/rJvuv4heS3tneWEEkqxWnZhhiXmzdliZAqjrxVgxA3p6a1PCRupCiwP5mZ/olO4LGiRj2/n3mbyWFkgTuTSJLyBEciFfd8KHTu5PpK31KPWStlDDf8ADmrBkBPt9fhoauScGf/Z" alt="" srcset=""/></div>
+                              </div>
+                              <div class="col space-box">
+                                <div class="table-name-headding">
+                                  <label>Elliot Huber</label>
+                                </div>
+                                <div class="table-name-subheadding">
+                                  <label>Lorem ipsum dolor sic</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td> 
+                          <div class="table-style">Madrid</div>
+                        </td>
+                        <td> 
+                          <div> 
+                            <button class="status progress"> 
+                              <label>IN PROGRESS</label>
+                            </button>
+                          </div>
+                        </td>
+                        <td> 
+                          <div> 
+                            <button class="status details"> 
+                              <label>Details</label>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td> 
+                          <div class="table-style">#55</div>
+                        </td>
+                        <td> 
+                          <div class="text-left">
+                            <div class="cols"> 
+                              <div class="col auto">
+                                <div class="bg-icon"><img class="image-profile" src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMfaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkQ3MDQwMTFBRUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkQ3MDQwMTE5RUNGMDExRThBNjRDQzQyMTE5Mjk5QTQ0IiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSI0RjBENjMzNUYyM0RFMUYwNjM4MTY4RTUyODFERkI3QSIgc3RSZWY6ZG9jdW1lbnRJRD0iNEYwRDYzMzVGMjNERTFGMDYzODE2OEU1MjgxREZCN0EiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwM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" alt="" srcset=""/></div>
+                              </div>
+                              <div class="col space-box">
+                                <div class="table-name-headding">
+                                  <label>Vinnie Wagstaff</label>
+                                </div>
+                                <div class="table-name-subheadding">
+                                  <label>UI Designer</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td> 
+                          <div class="table-style">Madrid</div>
+                        </td>
+                        <td> 
+                          <div> 
+                            <button class="status on-hold"> 
+                              <label>ON HOlD</label>
+                            </button>
+                          </div>
+                        </td>
+                        <td> 
+                          <div> 
+                            <button class="status details"> 
+                              <label>Details</label>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="newBox"> 
+                  <div class="cols center">
+                    <button class="icon-edit icon-delete"> <i class="las la-trash-alt font-24"></i></button>
+                    <button class="icon-edit icon-save">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cols newbox box-sp-footer">
+            <div class="col">
+              <div class="box-widget"> 
+                <div class="box-widget-card1 position-box vp vvp hxCard">
+                  <div class="box-chart-bottom" id="chart_7"></div>
+                  <div class="box-chart-bottom-text">
+                    <div class="box-widget-icon-top">
+                      <div class="box-widget-icon-cycle  color-gray-d2"><i class="las la-cog box-widget-icon color-ic-4"></i></div>
+                    </div>
+                    <div class="box-widget-number color-text">45.8k</div>
+                    <div class="box-widget-subheaing color-text-sub">Total Views</div>
+                    <div class="box-widget-detail color-box1"> <i class="las la-angle-up icon-left"></i>
+                      <label>175.5%        </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col ">
+              <div class="box-widget"> 
+                <div class="box-widget-card1 position-box vp vvp hxCard">
+                  <div class="box-chart-bottom " id="chart_8"></div>
+                  <div class="box-chart-bottom-text position-box-center">
+                    <div class="box-widget-icon-top">
+                      <div class="box-widget-icon-cycle  color-green-d2"><i class="las la-desktop box-widget-icon color-ic-7"></i></div>
+                    </div>
+                    <div class="box-widget-number color-text">17.2k</div>
+                    <div class="box-widget-subheaing color-text-sub">Profiles</div>
+                    <div class="box-widget-detail color-font-status-1"> 
+                      <label>175.5%</label><i class="las la-arrow-left icon-right"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col ">
+              <div class="box-widget  "> 
+                <div class="box-widget-card1 vp vvp position-box hxCard">
+                  <div class="box-chart-bottom opacity6" id="chart_9"></div>
+                  <div class="box-chart-bottom-text position-box-center ">
+                    <div class="box-widget-icon-top">
+                      <div class="box-widget-icon-cycle  color-red-d2"><i class="las la-mobile box-widget-icon color-ic-5"></i></div>
+                    </div>
+                    <div class="box-widget-number color-text">5.82K</div>
+                    <div class="box-widget-subheaing color-text-sub">Reports Submitted</div>
+                    <div class="box-widget-detail color-font-status-2"> <i class="las la-angle-down icon-left"></i>
+                      <label>54.1%</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cols box-footer  flex-2-box">
+            <div> 
+              <div class="cols footer-style-link">
+                <div class="col">
+                  <label>Footer Link 1</label>
+                </div>
+                <div class="col" style="margin-left:20px">
+                  <label>Footer Link 2</label>
+                </div>
+              </div>
+            </div>
+            <div> 
+              <div class="cols footer-style-link ">
+                <div style="margin-left:20px">
+                  <label>Footer Link 3</label>
+                  <button class="status new m-20">NEW</button>
+                  <label>Footer Link 4</label>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </body>
 </html>
+<script src="../control.js"></script>
